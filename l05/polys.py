@@ -45,13 +45,35 @@ def eq_poly(poly1: list, poly2: list):        # bool, porównywanie poly1(x) == 
     return True
 
 
-def eval_poly(poly: list, x0: list): pass           # poly(x0), algorytm Hornera
+def eval_poly(poly: list, x0: float):           # poly(x0), algorytm Hornera
+    result = False
+    for x in reversed(poly):
+        if not result:
+            result = x
+            continue
+        result = result*x0 + x
+
+    return result
 
 
 def combine_poly(poly1: list, poly2: list): pass    # poly1(poly2(x)), trudne!
 
 
-def pow_poly(poly: list, n: list): pass             # poly(x) ** n
+def pow_poly(poly: list, n: int):             # poly(x) ** n
+    if n == 0:
+        return 1
+    if n == 1:
+        return poly
+    result = poly.copy()
+    for i in range(n-1):
+        result = mul_poly(result, poly)
+    return result
 
 
-def diff_poly(poly: list): pass               # pochodna wielomianu
+def diff_poly(poly: list):               # pochodna wielomianu
+    result = []
+    for i, x in enumerate(poly):
+        if i == 0:
+            continue
+        result.append(i*x)
+    return result

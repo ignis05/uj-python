@@ -41,15 +41,31 @@ class TestPolynomials(unittest.TestCase):
         self.assertEqual(eq_poly([0, 1, 0], [0, 1, 0, 0]), True)
         self.assertEqual(eq_poly([1], [0, 1]), False)
 
-    def test_eval_poly(self): pass
+    def test_eval_poly(self):
+        self.assertEqual(eval_poly(self.p1, 10), 10)
+        self.assertEqual(eval_poly(self.p1, 20), 20)
+        self.assertEqual(eval_poly(self.p2, 2), 4)
+        self.assertEqual(eval_poly(self.p2, 4), 16)
+        self.assertEqual(eval_poly(self.p3, 6), 8)
+        self.assertEqual(eval_poly(self.p3, -2), 0)
+        self.assertEqual(eval_poly(self.p4, 6), 15)
+        self.assertEqual(eval_poly(self.p4, 20), 43)
 
     def test_combine_poly(self): pass
 
-    def test_pow_poly(self): pass
+    def test_pow_poly(self):
+        self.assertEqual(pow_poly(self.p1, 5), [0, 0, 0, 0, 0, 1])  # x^5
+        self.assertEqual(pow_poly(self.p2, 2), [0, 0, 0, 0, 1])  # x^4
+        self.assertEqual(pow_poly(self.p3, 4), [16, 32, 24, 8, 1])  # x^4 + 8x^3 + 24x^2 + 32x + 16
+        self.assertEqual(pow_poly(self.p4, 5), [243, 810, 1080, 720, 240, 32])  # 32x^5 + 240x^4 + 720x^3 + 1080x^2 + 810x + 243
 
-    def test_diff_poly(self): pass
+    def test_diff_poly(self):
+        self.assertEqual(diff_poly(self.p1), [1])  # (x)' = 1
+        self.assertEqual(diff_poly(self.p2), [0, 2])  # (x^2)' = 2x
+        self.assertEqual(diff_poly(self.p3), [1])  # (x+2)' = 1
+        self.assertEqual(diff_poly(self.p4), [2])  # (2x+1)' = 2
 
-    def tearDown(self): pass
+    def tearDown(self): pass  # ! co z tym ???
 
 
 if __name__ == '__main__':
