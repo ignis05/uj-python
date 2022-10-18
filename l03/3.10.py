@@ -2,7 +2,6 @@
 # Mile widziany kod tłumaczący całą liczbę [funkcja roman2int()].
 
 
-# moznaby tez miec pelen slownik tlumaczacy wyrazenia z prefixami np IV=4, albo nawet caly alfabet 1:1 z zapisami w stylu: II=2, III=3
 romanDict = {
     'I': 1,
     'V': 5,
@@ -12,6 +11,12 @@ romanDict = {
     'D': 500,
     'M': 1000
 }
+# alternatywne sposoby tworzenia słownika
+romanDict1 = dict(I=1, V=5, X=10, L=50, C=100, D=500, M=1000)
+romanDict2 = dict([("I", 1), ("V", 5), ("X", 10), ("L", 50), ("C", 100), ("D", 500), ("M", 1000), ])
+print(romanDict)
+print(romanDict1)
+print(romanDict2)
 
 
 def roman2int(roman):
