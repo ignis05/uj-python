@@ -12,7 +12,7 @@ else:
 #-------------------------------------
 # %%
 for i in "axby": if ord(i) < 100: print (i)
-# podany kod jest niepoprawny, wiele ekspresji w jednej linijce powoduje bład
+# podany kod jest niepoprawny, python nie wie jaki zasięg ma pętla i if, ponieważ są w jednej linijce
 
 #-------------------------------------
 # %%

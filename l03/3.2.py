@@ -10,11 +10,11 @@ x, y = 1, 2, 3
 
 # %%
 X = 1, 2, 3 ; X[1] = 4
-# brak nawiasów [] listy przy przypisaniu do X
+# brak nawiasów [] listy przy tworzeniu X,
 
 # %%
 X = [1, 2, 3] ; X[3] = 4
-# listy numerowane są od 0, x[3] nie istnieje i przypisanie do niego spowoduje bład
+# listy numerowane są od 0, x[3] nie istnieje i przypisanie do niego spowoduje bład, rozpakowanie 1,2,3 spowoduje błąd
 
 # %%
 X = "abc" ; X.append("d")
