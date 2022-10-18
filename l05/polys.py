@@ -56,12 +56,16 @@ def eval_poly(poly: list, x0: float):           # poly(x0), algorytm Hornera
     return result
 
 
-def combine_poly(poly1: list, poly2: list): pass    # poly1(poly2(x)), trudne!
+def combine_poly(poly1: list, poly2: list):    # poly1(poly2(x)), trudne!
+    result = [0]
+    for i1, p1 in enumerate(poly1):
+        result = add_poly(result, [p1 * el for el in pow_poly(poly2, i1)])
+    return result
 
 
 def pow_poly(poly: list, n: int):             # poly(x) ** n
     if n == 0:
-        return 1
+        return [1]
     if n == 1:
         return poly
     result = poly.copy()

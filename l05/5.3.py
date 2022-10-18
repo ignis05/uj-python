@@ -12,6 +12,7 @@ class TestPolynomials(unittest.TestCase):
         self.p2 = [0, 0, 1]   # W(x) = x^2
         self.p3 = [2, 1]  # x+2
         self.p4 = [3, 2]  # 2x+3
+        self.p5 = [16, 32, 24, 8, 1]  # x^4 + 8x^3 + 24x^2 + 32x + 16
 
     def test_add_poly(self):
         self.assertEqual(add_poly(self.p1, self.p2), [0, 1, 1])  # x^2 + x
@@ -51,12 +52,17 @@ class TestPolynomials(unittest.TestCase):
         self.assertEqual(eval_poly(self.p4, 6), 15)
         self.assertEqual(eval_poly(self.p4, 20), 43)
 
-    def test_combine_poly(self): pass
+    def test_combine_poly(self):
+        self.assertEqual(combine_poly(self.p1, self.p2), [0, 0, 1])
+        self.assertEqual(combine_poly(self.p2, self.p1), [0, 0, 1])
+        self.assertEqual(combine_poly(self.p3, self.p4), [5, 2])
+        self.assertEqual(combine_poly(self.p4, self.p3), [7, 2])
+        self.assertEqual(combine_poly(self.p5, [1, 0, 1]), [81, 0, 108, 0, 54, 0, 12, 0, 1])  # solve x^4 + 8x^3 + 24x^2 + 32x + 16 for x=y^2+1
 
     def test_pow_poly(self):
         self.assertEqual(pow_poly(self.p1, 5), [0, 0, 0, 0, 0, 1])  # x^5
         self.assertEqual(pow_poly(self.p2, 2), [0, 0, 0, 0, 1])  # x^4
-        self.assertEqual(pow_poly(self.p3, 4), [16, 32, 24, 8, 1])  # x^4 + 8x^3 + 24x^2 + 32x + 16
+        self.assertEqual(pow_poly(self.p3, 4), self.p5)  # x^4 + 8x^3 + 24x^2 + 32x + 16
         self.assertEqual(pow_poly(self.p4, 5), [243, 810, 1080, 720, 240, 32])  # 32x^5 + 240x^4 + 720x^3 + 1080x^2 + 810x + 243
 
     def test_diff_poly(self):
@@ -65,7 +71,7 @@ class TestPolynomials(unittest.TestCase):
         self.assertEqual(diff_poly(self.p3), [1])  # (x+2)' = 1
         self.assertEqual(diff_poly(self.p4), [2])  # (2x+1)' = 2
 
-    def tearDown(self): pass  # ! co z tym ???
+    def tearDown(self): pass
 
 
 if __name__ == '__main__':
