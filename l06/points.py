@@ -1,3 +1,7 @@
+# W pliku points.py zdefiniować klasę Point wraz z potrzebnymi metodami.
+# Punkty są traktowane jak wektory zaczepione w początku układu współrzędnych, o końcu w położeniu (x, y).
+# Napisać kod testujący moduł points.
+
 import unittest
 
 
