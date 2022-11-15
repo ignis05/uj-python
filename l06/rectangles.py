@@ -12,6 +12,8 @@ class Rectangle:
     """Klasa reprezentująca prostokąt na płaszczyźnie."""
 
     def __init__(self, x1, y1, x2, y2):
+        if x1 >= x2 or y1 >= y2:
+            raise ValueError("Point 1 must have lower coordinates than Point 2")
         self.pt1 = Point(x1, y1)
         self.pt2 = Point(x2, y2)
 
