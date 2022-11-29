@@ -67,12 +67,12 @@ class Rectangle:
             Rectangle(self.pt1.x, self.pt1.y, center.x, center.y),  # D
         )
 
-    @staticmethod
-    def from_points(points):
+    @classmethod
+    def from_points(cls, points):
         point1, point2 = points
         if not (isinstance(point1, Point) and isinstance(point2, Point)):
             raise ValueError("Argument is not iterable of points")
-        return Rectangle(point1.x, point1.y, point2.x, point2.y)
+        return cls(point1.x, point1.y, point2.x, point2.y)
 
     @property
     def top(self):
