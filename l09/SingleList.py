@@ -81,15 +81,37 @@ class SingleList:
 
     # None <- other.head=other.tail
 
-    def remove_tail(self): pass   # klasy O(n)
-    # Zwraca cały węzeł, skraca listę.
-    # Dla pustej listy rzuca wyjątek ValueError.
+    def remove_tail(self):   # klasy O(n)
+        # Zwraca cały węzeł, skraca listę.
+        # Dla pustej listy rzuca wyjątek ValueError.
+        res = self.tail
+        if self.length == 0:
+            raise ValueError('list is empty')
+        elif self.length == 1:
+            self.head = self.tail = None
+            self.length -= 1
+            return res
 
-    def join(self, other): pass   # klasy O(1)
-    # Węzły z listy other są przepinane do listy self na jej koniec.
-    # Po zakończeniu operacji lista other ma być pusta.
+        node = self.head
+        while (node.next != self.tail):
+            node = node.next
 
-    def clear(self): pass     # czyszczenie listy
+        self.length -= 1
+        node.next = None
+        self.tail = node
+        return res
+
+    def join(self, other):   # klasy O(1)
+        # Węzły z listy other są przepinane do listy self na jej koniec.
+        # Po zakończeniu operacji lista other ma być pusta.
+        self.tail.next = other.head
+        self.tail = other.tail
+        self.length += other.length
+        other.clear()
+
+    def clear(self):     # czyszczenie listy
+        self.head = self.tail = None
+        self.length = 0
 
     # ---- 9.2 ----
 
