@@ -54,33 +54,6 @@ class SingleList:
 
     # ---- 9.1 ----
 
-    # ? tmp join instructions
-    # POCZĄTEK JOIN
-    # A1 <- self.head
-    # |
-    # A2 <- self.tail
-    # |
-    # None
-
-    # B1 <- other.head
-    # |
-    # B2 <- other.tail
-    # |
-    # None
-
-    # KONIEC JOIN
-    # A1 <- self.head
-    # |
-    # A2
-    # |
-    # B1
-    # |
-    # B2 <- self.tail
-    # |
-    # None
-
-    # None <- other.head=other.tail
-
     def remove_tail(self):   # klasy O(n)
         # Zwraca cały węzeł, skraca listę.
         # Dla pustej listy rzuca wyjątek ValueError.
@@ -115,14 +88,57 @@ class SingleList:
 
     # ---- 9.2 ----
 
-    def search(self, data): pass   # klasy O(n)
-    # Zwraca łącze do węzła o podanym kluczu lub None.
+    def search(self, data):   # klasy O(n)
+        # Zwraca łącze do węzła o podanym kluczu lub None.
+        if self.length == 0:
+            return None
+        node = self.head
+        while (node.data != data):
+            if node.next:
+                node = node.next
+            else:
+                return None
+        return node
 
-    def find_min(self): pass   # klasy O(n)
-    # Zwraca łącze do węzła z najmniejszym kluczem lub None dla pustej listy.
+    def find_min(self):   # klasy O(n)
+        # Zwraca łącze do węzła z najmniejszym kluczem lub None dla pustej listy.
+        if self.length == 0:
+            return None
+        minVal = self.head.data
+        minNode = self.head
+        node = self.head
+        while (node is not None):
+            if (node.data < minVal):
+                minVal = node.data
+                minNode = node
+            node = node.next
+        return minNode
 
-    def find_max(self): pass   # klasy O(n)
-    # Zwraca łącze do węzła z największym kluczem lub None dla pustej listy.
+    def find_max(self):   # klasy O(n)
+        # Zwraca łącze do węzła z największym kluczem lub None dla pustej listy.
+        if self.length == 0:
+            return None
+        maxVal = self.head.data
+        maxNode = self.head
+        node = self.head
+        while (node is not None):
+            if (node.data > maxVal):
+                maxVal = node.data
+                maxNode = node
+            node = node.next
+        return maxNode
 
-    def reverse(self): pass   # klasy O(n)
-    # Odwracanie kolejności węzłów na liście.
+    def reverse(self):   # klasy O(n)
+        # Odwracanie kolejności węzłów na liście.
+        if self.length <= 1:
+            return
+
+        self.tail = self.head
+        prevNode = None
+        node = self.head
+        while (node is not None):
+            next = node.next
+            node.next = prevNode
+            prevNode = node
+            node = next
+        self.head = prevNode
