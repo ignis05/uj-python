@@ -77,9 +77,14 @@ class SingleList:
     def join(self, other):   # klasy O(1)
         # Węzły z listy other są przepinane do listy self na jej koniec.
         # Po zakończeniu operacji lista other ma być pusta.
-        self.tail.next = other.head
-        self.tail = other.tail
-        self.length += other.length
+        if self.tail == None:
+            self.head = other.head
+            self.tail = other.tail
+            self.length = other.length
+        else:
+            self.tail.next = other.head
+            self.tail = other.tail
+            self.length += other.length
         other.clear()
 
     def clear(self):     # czyszczenie listy
