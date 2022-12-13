@@ -1,0 +1,3 @@
+- "Generowanie labiryntu, np. Wilson, Aldous-Broder, Kruskal, Prim."
+- gui jakiś canvas
+- pola na wpisanie parametrów (width, height)
