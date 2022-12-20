@@ -1,12 +1,13 @@
-class GraphEdge:
-    node1 = None
-    node2 = None
-    data = dict(value=0, intree=False)
+from queue import PriorityQueue
+from random import randint
 
-    def __init__(self, node1, node2, value):
+
+class GraphEdge:
+    def __init__(self, node1, node2, weight: int):
         self.node1 = node1
         self.node2 = node2
-        self.data['value'] = value
+        self.weight = weight
+        self.inTree = False
 
     def getOtherNode(self, node):
         if self.node1 == node:
@@ -16,8 +17,11 @@ class GraphEdge:
 
 
 class GraphNode:
-    data = dict(x=0, y=0, inTree=False)
-    edges: list[GraphEdge] = []
+    def __init__(self, x: int, y: int):
+        self.x = x
+        self.y = y
+        self.edges: list[GraphEdge] = []
+        self.inTree = False
 
     @property
     def getNeighbors(self):
@@ -25,9 +29,81 @@ class GraphNode:
 
 
 class Graph:
-    nodes = []
+    def __init__(self):
+        self.nodes: list[GraphNode] = []
 
-    def connect(node1: GraphNode, node2: GraphNode, value: int = 1):
-        edge = GraphEdge(node1, node2, value)
+    def addNode(self, x: int, y: int):
+        node = GraphNode(x, y)
+        self.nodes.append(node)
+        return node
+
+    def connect(self, node1: GraphNode, node2: GraphNode, weight: int = 1):
+        for edge in node1.edges:
+            if edge.getOtherNode(node1) == node2:
+                return
+
+        edge = GraphEdge(node1, node2, weight)
         node1.edges.append(edge)
         node2.edges.append(edge)
+
+    def find(self, x, y):
+        for node in self.nodes:
+            if node.x == x and node.y == y:
+                return node
+
+    def connectByCoords(self, x1, y1, x2, y2):
+        self.connect(self.find(x1, y1), self.find(x2, y2), randint(0, 10000))
+
+    def createGrid(self, width: int, height: int):
+        "creates nodes in a grid, where each node is connected to up to 4 neighbours"
+        self.nodes = []
+        for y in range(height):
+            for x in range(width):
+                self.addNode(x, y)
+
+        for y in range(height):
+            for x in range(width):
+                if x > 0:
+                    self.connectByCoords(x, y, x-1, y)
+                if x < width - 1:
+                    self.connectByCoords(x, y, x+1, y)
+                if y > 0:
+                    self.connectByCoords(x, y, x, y-1)
+                if y < width - 1:
+                    self.connectByCoords(x, y, x, y+1)
+
+    def spanningTree(self):
+        "Prim's algorithm, removes all possible edges, leaving all vertexes accessible"
+        pqueue = PriorityQueue()
+
+        # add first node to the tree and its edges to the queue
+        node = self.nodes[0]
+        node.inTree = True
+        for edge in node.edges:
+            pqueue.put((edge.weight, edge, node))
+
+        # each iteration add one node to the tree
+        for i in range(1, len(self.nodes)):
+            # get shortest edge leaning outside of tree
+            shortestEdge = None
+            while True:
+                _, shortestEdge, startNode = pqueue.get()
+                node = shortestEdge.getOtherNode(startNode)
+                if shortestEdge.inTree == False:
+                    break
+
+            # add edge and node to the tree
+            node.inTree = True
+            shortestEdge.inTree = True
+
+            # add all edges leading outside tree to the queue
+            for edge in node.edges:
+                if not edge.getOtherNode(node).inTree:
+                    pqueue.put((edge.weight, edge, node))
+
+
+
+if __name__ == '__main__':
+    g = Graph()
+    g.createGrid(5, 5)
+    g.spanningTree()

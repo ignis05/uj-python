@@ -7,11 +7,13 @@ window = tk.Tk()
 
 lbWidth = tk.Label(text="Width")
 inWidth = tk.Entry()
+inWidth.insert(0, "10")
 lbWidth.pack()
 inWidth.pack()
 
 lbHeight = tk.Label(text="Height")
 inHeight = tk.Entry()
+inHeight.insert(0, "10")
 lbHeight.pack()
 inHeight.pack()
 
@@ -24,7 +26,8 @@ def clickHandler(event):
     h = inWidth.get()
     intW = int(w)
     intH = int(h)
-    draw(w, h)
+
+    draw(intW, intH)
 
 
 btDraw.bind("<Button-1>", clickHandler)
