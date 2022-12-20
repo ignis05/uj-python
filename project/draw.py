@@ -64,30 +64,33 @@ def draw(w_chunks: int, h_chunks: int, canvas: tk.Canvas, drawPassages=False, dr
 
     tr = CoordTranslator(wChunk, hChunk, offset)
 
+    # left wall
+    canvas.create_line(offset, offset, offset, offset+height, fill='black')
+    # top wall
+    canvas.create_line(offset, offset, offset+width, offset, fill='black')
+    # right wall
+    canvas.create_line(offset+width, offset, offset+width, offset+height, fill='black')
+    # bottom wall
+    canvas.create_line(offset, offset+height, offset+width, offset+height, fill='black')
+
     i = 0
     for y in range(h_chunks):
         for x in range(w_chunks):
-            # left wall
-            if x == 0 or not g.areCoordsConnected(x, y, x-1, y):
-                canvas.create_line(*tr.leftWall(x, y), fill='black')
-            elif drawPassages:
-                canvas.create_line(*tr.leftWall(x, y), fill='yellow')
             # right wall
-            if x == w_chunks-1 or not g.areCoordsConnected(x, y, x+1, y):
+            if x < w_chunks-1 and g.areCoordsConnected(x, y, x+1, y):
+                if drawPassages:
+                    canvas.create_line(*tr.rightWall(x, y), fill='yellow')
+            else:
                 canvas.create_line(*tr.rightWall(x, y), fill='black')
-            elif drawPassages:
-                canvas.create_line(*tr.rightWall(x, y), fill='yellow')
-            # top wall
-            if y == 0 or not g.areCoordsConnected(x, y, x, y-1):
-                canvas.create_line(*tr.topWall(x, y), fill='black')
-            elif drawPassages:
-                canvas.create_line(*tr.topWall(x, y), fill='yellow')
-            # bottom wall
-            if y == h_chunks-1 or not g.areCoordsConnected(x, y, x, y+1):
-                canvas.create_line(*tr.botWall(x, y), fill='black')
-            elif drawPassages:
-                canvas.create_line(*tr.botWall(x, y), fill='yellow')
 
+            # bottom wall
+            if y < h_chunks-1 and g.areCoordsConnected(x, y, x, y+1):
+                if drawPassages:
+                    canvas.create_line(*tr.botWall(x, y), fill='yellow')
+            else:
+                canvas.create_line(*tr.botWall(x, y), fill='black')
+
+            # tile numbers
             if drawTileNumbers:
                 canvas.create_text(tr.center(x, y), text=f"{i}", fill="black")
             i += 1
