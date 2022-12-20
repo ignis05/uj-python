@@ -22,11 +22,15 @@ class GraphEdge:
     def __gt__(self, other):
         return self.weight < other.weight
 
+    def __str__(self):
+        return f'Edge({self.node1.i}=={self.node2.i})'
+
 
 class GraphNode:
-    def __init__(self, x: int, y: int):
+    def __init__(self, x: int, y: int, i: int):
         self.x = x
         self.y = y
+        self.i = i
         self.edges: list[GraphEdge] = []
         self.inTree = False
 
@@ -34,13 +38,16 @@ class GraphNode:
     def getNeighbors(self):
         return [edge.getOtherNode(self) for edge in self.edges]
 
+    def __str__(self):
+        return f'Node({self.i})'
+
 
 class Graph:
     def __init__(self):
         self.nodes: list[GraphNode] = []
 
     def addNode(self, x: int, y: int):
-        node = GraphNode(x, y)
+        node = GraphNode(x, y, len(self.nodes))
         self.nodes.append(node)
         return node
 
@@ -62,6 +69,8 @@ class Graph:
         node1 = self.find(x1, y1)
         node2 = self.find(x2, y2)
         for edge in node1.edges:
+            if not edge.inTree:
+                continue
             if edge.getOtherNode(node1) == node2:
                 return True
         return False
@@ -120,18 +129,6 @@ class Graph:
             for edge in node.edges:
                 if not edge.getOtherNode(node).inTree:
                     pqueue.put(edge)
-
-        # remove edges not in tree
-        for node in self.nodes:
-            for edge in node.edges:
-                if not edge.inTree:
-                    node.edges.remove(edge)
-
-        # reset inTree values
-        for node in self.nodes:
-            node.inTree = False
-            for edge in node.edges:
-                edge.inTree = False
 
 
 if __name__ == '__main__':

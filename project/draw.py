@@ -1,5 +1,6 @@
 from graph import Graph
 import tkinter as tk
+import time
 
 
 class CoordTranslator():
@@ -40,8 +41,13 @@ class CoordTranslator():
         x2, y2 = self.botRight(x, y)
         return x1, y1, x2, y2
 
+    def center(self, x, y):
+        x1, y1 = self.topLeft(x, y)
+        return x1+0.5*self.width, y1+0.5*self.height
 
-def draw(w_chunks: int, h_chunks: int, canvas: tk.Canvas):
+
+def draw(w_chunks: int, h_chunks: int, canvas: tk.Canvas, drawPassages=False, drawTileNumbers=False):
+    start = time.time()
     offset = 5
     width = canvas.winfo_width() - (2*offset)
     height = canvas.winfo_height() - (2*offset)
@@ -58,26 +64,31 @@ def draw(w_chunks: int, h_chunks: int, canvas: tk.Canvas):
 
     tr = CoordTranslator(wChunk, hChunk, offset)
 
+    i = 0
     for y in range(h_chunks):
         for x in range(w_chunks):
             # left wall
             if x == 0 or not g.areCoordsConnected(x, y, x-1, y):
                 canvas.create_line(*tr.leftWall(x, y), fill='black')
-            else:
+            elif drawPassages:
                 canvas.create_line(*tr.leftWall(x, y), fill='yellow')
             # right wall
             if x == w_chunks-1 or not g.areCoordsConnected(x, y, x+1, y):
                 canvas.create_line(*tr.rightWall(x, y), fill='black')
-            else:
+            elif drawPassages:
                 canvas.create_line(*tr.rightWall(x, y), fill='yellow')
             # top wall
             if y == 0 or not g.areCoordsConnected(x, y, x, y-1):
                 canvas.create_line(*tr.topWall(x, y), fill='black')
-            else:
+            elif drawPassages:
                 canvas.create_line(*tr.topWall(x, y), fill='yellow')
             # bottom wall
             if y == h_chunks-1 or not g.areCoordsConnected(x, y, x, y+1):
                 canvas.create_line(*tr.botWall(x, y), fill='black')
-            else:
+            elif drawPassages:
                 canvas.create_line(*tr.botWall(x, y), fill='yellow')
-    print('done')
+
+            if drawTileNumbers:
+                canvas.create_text(tr.center(x, y), text=f"{i}", fill="black")
+            i += 1
+    print(f'drawing done in {(time.time() - start)*1000 :.0f}ms')
