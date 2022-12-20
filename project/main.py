@@ -3,7 +3,7 @@ from draw import draw
 import tkinter as tk
 
 
-window = tk.Tk()
+root = tk.Tk()
 
 lbWidth = tk.Label(text="Width")
 inWidth = tk.Entry()
@@ -20,6 +20,8 @@ inHeight.pack()
 btDraw = tk.Button(text="Draw")
 btDraw.pack()
 
+canv = tk.Canvas(root, bg="white", height=500, width=500)
+canv.pack()
 
 def clickHandler(event):
     w = inWidth.get()
@@ -27,10 +29,10 @@ def clickHandler(event):
     intW = int(w)
     intH = int(h)
 
-    draw(intW, intH)
+    draw(intW, intH, canv)
 
 
 btDraw.bind("<Button-1>", clickHandler)
 
 
-window.mainloop()
+root.mainloop()

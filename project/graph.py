@@ -51,6 +51,14 @@ class Graph:
             if node.x == x and node.y == y:
                 return node
 
+    def areCoordsConnected(self, x1, y1, x2, y2):
+        node1 = self.find(x1, y1)
+        node2 = self.find(x2, y2)
+        for edge in node1.edges:
+            if edge.getOtherNode(node1) == node2:
+                return True
+        return False
+
     def connectByCoords(self, x1, y1, x2, y2):
         self.connect(self.find(x1, y1), self.find(x2, y2), randint(0, 10000))
 
@@ -101,6 +109,17 @@ class Graph:
                 if not edge.getOtherNode(node).inTree:
                     pqueue.put((edge.weight, edge, node))
 
+        # remove edges not in tree
+        for node in self.nodes:
+            for edge in node.edges:
+                if not edge.inTree:
+                    node.edges.remove(edge)
+
+        # reset inTree values
+        for node in self.nodes:
+            node.inTree = False
+            for edge in node.edges:
+                edge.inTree = False
 
 
 if __name__ == '__main__':
