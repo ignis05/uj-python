@@ -42,9 +42,9 @@ class CoordTranslator():
 
 
 def draw(w_chunks: int, h_chunks: int, canvas: tk.Canvas):
-    offset = 2
-    width = canvas.winfo_width() - 2*offset
-    height = canvas.winfo_height() - 2*offset
+    offset = 5
+    width = canvas.winfo_width() - (2*offset)
+    height = canvas.winfo_height() - (2*offset)
     wChunk = width/w_chunks
     hChunk = height/h_chunks
 
@@ -63,12 +63,21 @@ def draw(w_chunks: int, h_chunks: int, canvas: tk.Canvas):
             # left wall
             if x == 0 or not g.areCoordsConnected(x, y, x-1, y):
                 canvas.create_line(*tr.leftWall(x, y), fill='black')
+            else:
+                canvas.create_line(*tr.leftWall(x, y), fill='yellow')
             # right wall
             if x == w_chunks-1 or not g.areCoordsConnected(x, y, x+1, y):
                 canvas.create_line(*tr.rightWall(x, y), fill='black')
+            else:
+                canvas.create_line(*tr.rightWall(x, y), fill='yellow')
             # top wall
             if y == 0 or not g.areCoordsConnected(x, y, x, y-1):
                 canvas.create_line(*tr.topWall(x, y), fill='black')
+            else:
+                canvas.create_line(*tr.topWall(x, y), fill='yellow')
             # bottom wall
             if y == h_chunks-1 or not g.areCoordsConnected(x, y, x, y+1):
                 canvas.create_line(*tr.botWall(x, y), fill='black')
+            else:
+                canvas.create_line(*tr.botWall(x, y), fill='yellow')
+    print('done')

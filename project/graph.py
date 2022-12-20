@@ -15,12 +15,12 @@ class GraphEdge:
         else:
             return self.node1
 
-    # priority queue will fallback to comparing objects when weights are equal, so this is needed to avoid errors
+    # comparison operators for priorityqueue
     def __gt__(self, other):
-        return self.node1.x + self.node2.x + self.node1.y + self.node2.y > other.node1.x + other.node2.x + other.node1.y + other.node2.y
+        return self.weight > other.weight
 
     def __gt__(self, other):
-        return self.node1.x + self.node2.x + self.node1.y + self.node2.y < other.node1.x + other.node2.x + other.node1.y + other.node2.y
+        return self.weight < other.weight
 
 
 class GraphNode:
@@ -95,16 +95,21 @@ class Graph:
         node = self.nodes[0]
         node.inTree = True
         for edge in node.edges:
-            pqueue.put((edge.weight, edge, node))
+            pqueue.put(edge)
 
-        # each iteration add one node to the tree
-        for i in range(1, len(self.nodes)):
-            # get shortest edge leaning outside of tree
+        # until all nodes are in tree
+        while not all(n.inTree for n in self.nodes):
+            # get shortest edge leading outside of tree
             shortestEdge = None
             while True:
-                _, shortestEdge, startNode = pqueue.get()
-                node = shortestEdge.getOtherNode(startNode)
-                if shortestEdge.inTree == False:
+                shortestEdge = pqueue.get()
+                if shortestEdge.inTree:
+                    continue
+                if not shortestEdge.node1.inTree:
+                    node = shortestEdge.node1
+                    break
+                if not shortestEdge.node2.inTree:
+                    node = shortestEdge.node2
                     break
 
             # add edge and node to the tree
@@ -114,7 +119,7 @@ class Graph:
             # add all edges leading outside tree to the queue
             for edge in node.edges:
                 if not edge.getOtherNode(node).inTree:
-                    pqueue.put((edge.weight, edge, node))
+                    pqueue.put(edge)
 
         # remove edges not in tree
         for node in self.nodes:
