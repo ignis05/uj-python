@@ -42,10 +42,6 @@ class CoordTranslator():
 
 
 def draw(w_chunks: int, h_chunks: int, canvas: tk.Canvas):
-    g = Graph()
-    g.createGrid(w_chunks, h_chunks)
-    g.spanningTree()
-
     offset = 2
     width = canvas.winfo_width() - 2*offset
     height = canvas.winfo_height() - 2*offset
@@ -53,6 +49,12 @@ def draw(w_chunks: int, h_chunks: int, canvas: tk.Canvas):
     hChunk = height/h_chunks
 
     print(f'drawing on cavas {width}x{height} ({w_chunks}*{wChunk}px)x({h_chunks}*{hChunk}px)')
+
+    g = Graph()
+    g.createGrid(w_chunks, h_chunks)
+    g.spanningTree()
+
+    canvas.delete("all")
 
     tr = CoordTranslator(wChunk, hChunk, offset)
 

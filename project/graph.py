@@ -15,6 +15,13 @@ class GraphEdge:
         else:
             return self.node1
 
+    # priority queue will fallback to comparing objects when weights are equal, so this is needed to avoid errors
+    def __gt__(self, other):
+        return self.node1.x + self.node2.x + self.node1.y + self.node2.y > other.node1.x + other.node2.x + other.node1.y + other.node2.y
+
+    def __gt__(self, other):
+        return self.node1.x + self.node2.x + self.node1.y + self.node2.y < other.node1.x + other.node2.x + other.node1.y + other.node2.y
+
 
 class GraphNode:
     def __init__(self, x: int, y: int):
@@ -60,7 +67,7 @@ class Graph:
         return False
 
     def connectByCoords(self, x1, y1, x2, y2):
-        self.connect(self.find(x1, y1), self.find(x2, y2), randint(0, 10000))
+        self.connect(self.find(x1, y1), self.find(x2, y2), randint(0, 999999999))
 
     def createGrid(self, width: int, height: int):
         "creates nodes in a grid, where each node is connected to up to 4 neighbours"
