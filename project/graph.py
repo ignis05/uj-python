@@ -10,6 +10,7 @@ class GraphEdge:
         self.inTree = False
 
     def getOtherNode(self, node):
+        "Takes one of this edge's node as an argument and returns the other node"
         if self.node1 == node:
             return self.node2
         else:
@@ -36,6 +37,7 @@ class GraphNode:
 
     @property
     def getNeighbors(self):
+        "Returns a list of all Nodes that are neighbours of this node"
         return [edge.getOtherNode(self) for edge in self.edges]
 
     def __str__(self):
@@ -47,11 +49,13 @@ class Graph:
         self.nodes: list[GraphNode] = []
 
     def addNode(self, x: int, y: int):
+        "Creates a new node with given x,y coordinates"
         node = GraphNode(x, y, len(self.nodes))
         self.nodes.append(node)
         return node
 
     def connect(self, node1: GraphNode, node2: GraphNode, weight: int = 1):
+        "Connects two nodes with an edge of given weight"
         for edge in node1.edges:
             if edge.getOtherNode(node1) == node2:
                 return
@@ -61,11 +65,13 @@ class Graph:
         node2.edges.append(edge)
 
     def find(self, x, y):
+        "Finds and returns a node based on its coordinates"
         for node in self.nodes:
             if node.x == x and node.y == y:
                 return node
 
     def areCoordsConnected(self, x1, y1, x2, y2):
+        "Checks if nodes at given coordinates are connected"
         node1 = self.find(x1, y1)
         node2 = self.find(x2, y2)
         for edge in node1.edges:
@@ -76,6 +82,7 @@ class Graph:
         return False
 
     def connectByCoords(self, x1, y1, x2, y2):
+        "Creates connection with random weight between two nodes of given coordinates"
         self.connect(self.find(x1, y1), self.find(x2, y2), randint(0, 999999999))
 
     def createGrid(self, width: int, height: int):
@@ -97,7 +104,7 @@ class Graph:
                     self.connectByCoords(x, y, x, y+1)
 
     def spanningTree(self):
-        "Prim's algorithm, removes all possible edges, leaving all vertexes accessible"
+        "Prim's algorithm, removes all possible edges, leaving all nodes accessible"
         pqueue = PriorityQueue()
 
         # add first node to the tree and its edges to the queue

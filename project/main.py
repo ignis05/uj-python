@@ -33,6 +33,7 @@ canv.pack()
 
 
 def clickHandler(event):
+    "Handles button click, passes canvas and arguments to 'draw' function"
     w = int(inWidth.get())
     h = int(inWidth.get())
     dPass = drawPassages.get()
