@@ -9,6 +9,7 @@ Następnie program wyświetla utworzony "labirynt", traktując krawędzie drzewa
 Implementacja struktury grafu oraz algorytmu drzewa rozpinającego jest napisana własnoręcznie, w celu dostosowania jej do problemu, jedynie jako kolejka priorytetowa do algorytmu Prima została użyta gotowa struktura danych `queue.PriorityQueue`.
 
 ## Interfejs
+![2023-01-03_1672748549 _python](https://user-images.githubusercontent.com/48099798/210359555-869e8a89-f72e-4bed-829e-9a91dc31ec79.png)
 
 1. **Width** - pole tekstowe, przyjmujące liczbę naturalną. Ustala ilość pól składających się na jeden rząd labiryntu.
 2. **Height** - pole tekstowe, przyjmujące liczbę naturalną. Ustala ilość pól składających się na jedną kolumnę labiryntu.
