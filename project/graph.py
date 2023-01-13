@@ -71,7 +71,7 @@ class Graph:
                 return node
 
     def areCoordsConnected(self, x1, y1, x2, y2):
-        "Checks if nodes at given coordinates are connected"
+        "Checks if nodes at given coordinates are connected within the created spanning tree"
         node1 = self.find(x1, y1)
         node2 = self.find(x2, y2)
         for edge in node1.edges:
@@ -100,7 +100,7 @@ class Graph:
                     self.connectByCoords(x, y, x+1, y)
                 if y > 0:
                     self.connectByCoords(x, y, x, y-1)
-                if y < width - 1:
+                if y < height - 1:
                     self.connectByCoords(x, y, x, y+1)
 
     def spanningTree(self):
