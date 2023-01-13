@@ -83,7 +83,10 @@ class Graph:
 
     def connectByCoords(self, x1, y1, x2, y2):
         "Creates connection with random weight between two nodes of given coordinates"
-        self.connect(self.find(x1, y1), self.find(x2, y2), randint(0, 999999999))
+        self.connect(
+            self.find(x1, y1),
+            self.find(x2, y2),
+            randint(0, 999999999))
 
     def createGrid(self, width: int, height: int):
         "creates nodes in a grid, where each node is connected to up to 4 neighbours"

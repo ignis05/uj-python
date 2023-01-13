@@ -57,7 +57,9 @@ class CoordTranslator():
         return x1+0.5*self.width, y1+0.5*self.height
 
 
-def draw(w_chunks: int, h_chunks: int, canvas: tk.Canvas, drawPassages=False, drawTileNumbers=False):
+def draw(
+        w_chunks: int, h_chunks: int, canvas: tk.Canvas, drawPassages=False,
+        drawTileNumbers=False):
     "Takes tk.Canvas and parameters from gui as arguments, and draws the labirynth"
     start = time.time()
     offset = 5
@@ -66,7 +68,8 @@ def draw(w_chunks: int, h_chunks: int, canvas: tk.Canvas, drawPassages=False, dr
     wChunk = width/w_chunks
     hChunk = height/h_chunks
 
-    print(f'drawing on cavas {width}x{height} ({w_chunks}*{wChunk}px)x({h_chunks}*{hChunk}px)')
+    print(f'drawing on cavas {width}x{height} ' +
+          f'({w_chunks}*{wChunk}px)x({h_chunks}*{hChunk}px)')
 
     g = Graph()
     g.createGrid(w_chunks, h_chunks)
@@ -81,9 +84,11 @@ def draw(w_chunks: int, h_chunks: int, canvas: tk.Canvas, drawPassages=False, dr
     # top wall
     canvas.create_line(offset, offset, offset+width, offset, fill='black')
     # right wall
-    canvas.create_line(offset+width, offset, offset+width, offset+height, fill='black')
+    canvas.create_line(offset+width, offset, offset+width,
+                       offset+height, fill='black')
     # bottom wall
-    canvas.create_line(offset, offset+height, offset+width, offset+height, fill='black')
+    canvas.create_line(offset, offset+height, offset+width,
+                       offset+height, fill='black')
 
     i = 0
     for y in range(h_chunks):

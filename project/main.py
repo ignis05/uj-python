@@ -22,7 +22,8 @@ chbPass = tk.Checkbutton(root, text="Draw passages", variable=drawPassages)
 chbPass.pack()
 
 drawNumbers = tk.BooleanVar()
-chbNumbers = tk.Checkbutton(root, text="Show tile numbers", variable=drawNumbers)
+chbNumbers = tk.Checkbutton(
+    root, text="Show tile numbers", variable=drawNumbers)
 chbNumbers.pack()
 
 btDraw = tk.Button(text="Draw")

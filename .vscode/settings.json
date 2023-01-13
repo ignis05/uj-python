@@ -1,0 +1,1 @@
+{ "python.formatting.autopep8Args": ["--max-line-length", "80", "--experimental"] }
