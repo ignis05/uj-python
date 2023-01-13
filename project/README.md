@@ -1,6 +1,8 @@
 # Generacja Labiryntu za pomocą Algorytmu Prima
 
 Projekt zaliczeniowy na kurs języka Python.
+  
+Autor: Grzegorz Mikołajczyk
 
 ## Opis projektu
 
@@ -17,7 +19,7 @@ Implementacja struktury grafu oraz algorytmu drzewa rozpinającego jest napisana
 4. **Show tile numbers** - checkbox. W przypadku zaznaczenia, każde pole labiryntu wyświetla swój numer porządkowy.
 5. **Draw** - przycisk. Rysuje labirynt na podstawie powyższych ustawień. Przy każdym naciśnięciu cały algorytm uruchamiany jest od nowa, co powoduje powstanie nowego losowego labiryntu.
 
-## Algorytm prima
+## Algorytm Prima
 
 Zaimplementowany jest w metodzie `spanningTree` w implementacji grafu użytej do projektu.  
 Algorytm tworzy z grafu tzw. "Drzewo rozpinające", tj. podzbiór grafu zawierający wszystkie jego wierzchołki oraz minimalną liczbę krawędzi potrzebną, aby graf był spójny.  
@@ -27,3 +29,7 @@ Otrzymane drzewo jest następnie wykorzystane do narysowania labiryntu, gdzie ka
 Algorytm zaczyna od dodania jednego wierzchołka do drzewa.  
 Następnie wszystkie krawędzie tego wierzchołka dodawane są do kolejki priorytetowej, z której będą wyciągane na podstawie swoich wag (losowo przypisanych przy tworzeniu grafu).  
 Następnie, dopóki wszystkie wierzchołki nie trafią do grafu, wyciągana jest pierwsza krawędź z kolejki i jeśli wierzchołek, do którego prowadzi, nie należy do drzewa, to jest on dodawany do drzewa, a jego krawędzie do kolejki, a jeśli wierzchołek już został dodany do drzewa, to wyciągana jest kolejna krawędź z kolejki.
+
+## Uruchomienie
+Program uruchamia się poprzez uruchomienie pliku "main.py":  
+`py main.py`
